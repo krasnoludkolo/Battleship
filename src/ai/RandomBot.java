@@ -2,52 +2,31 @@ package ai;
 
 import game.BattleshipGame;
 import game.Cell;
-import game.GameStatus;
 import game.Coordinates;
-import game.observer.BoardObserver;
+import game.GameStatus;
 
-import java.util.Objects;
 import java.util.Random;
 
-public class RandomBot implements Runnable, BoardObserver {
+public class RandomBot extends AbstractBot {
 
-    private BattleshipGame battleshipGame;
-    private String name;
     private Random random = new Random();
 
     public RandomBot(BattleshipGame battleshipGame, String name) {
-        this.battleshipGame = battleshipGame;
-        this.name = name;
+        super(battleshipGame, name, 300);
     }
-
 
     @Override
-    public void run() {
-        while (true){
-            move();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void move() {
-        String activePlayer = battleshipGame.getActivePlayer();
-        if(Objects.equals(activePlayer,name)){
-            int x;
-            int y;
-            GameStatus gameStatusFor = battleshipGame.getGameStatusFor(name);
-            do {
-                int maxX = gameStatusFor.getEnemyBoardCells().length;
-                int maxY = gameStatusFor.getEnemyBoardCells()[0].length;
-                x = random.nextInt(maxX);
-                y = random.nextInt(maxY);
-            }while (isNotEmpty(x, y, gameStatusFor));
-            battleshipGame.makeMove(name,new Coordinates(x,y));
-        }
+    protected Coordinates nextMoveCoordinates() {
+        int x;
+        int y;
+        GameStatus gameStatusFor = lastGameStatus;
+        do {
+            int maxX = gameStatusFor.getEnemyBoardCells().length;
+            int maxY = gameStatusFor.getEnemyBoardCells()[0].length;
+            x = random.nextInt(maxX);
+            y = random.nextInt(maxY);
+        } while (isNotEmpty(x, y, gameStatusFor));
+        return new Coordinates(x, y);
     }
 
     private boolean isNotEmpty(int x, int y, GameStatus gameStatusFor) {
@@ -55,8 +34,4 @@ public class RandomBot implements Runnable, BoardObserver {
         return cell != Cell.EMPTY;
     }
 
-    @Override
-    public void update(GameStatus gameStatus) {
-
-    }
 }

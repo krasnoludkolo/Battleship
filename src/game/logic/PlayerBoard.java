@@ -100,4 +100,8 @@ class PlayerBoard {
         Optional<Ship> shipAt = getShipAt(coordinates);
         return shipAt.map(ship -> !ship.isPossibleToHit(coordinates)).orElse(false);
     }
+
+    public boolean hasShipsLeft() {
+        return ships.stream().mapToInt(ship -> ship.isSunk() ? 0 : 1).sum() > 0;
+    }
 }

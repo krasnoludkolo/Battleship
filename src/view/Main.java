@@ -1,53 +1,70 @@
 package view;
 
 import ai.RandomBot;
+import game.BattleshipGame;
 import game.Coordinates;
+import game.Player;
+import game.logic.RestBattleshipGame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import game.BattleshipGame;
-import game.Player;
-import game.logic.RestBattleshipGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
 
-    private int size = 6;
+    private int size = 10;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setOnCloseRequest(e->System.exit(0));
 
-        String asd = "jeden";
-        Player a = new Player(asd,getBoard());
-        Player b = new Player("bot",getBoard());
+        String playerA = "jeden";
+        String playerB = "bot";
+        Player a = new Player(playerA, getBoard());
+        Player b = new Player(playerB, getBoard());
         BattleshipGame battleshipGame = new RestBattleshipGame(a,b, size);
 
-        Thread thread = new Thread(new RandomBot(battleshipGame,"bot"));
+        Thread thread = new Thread(new RandomBot(battleshipGame, playerA));
+        Thread thread2 = new Thread(new RandomBot(battleshipGame, playerB));
         thread.start();
-        show(asd, a, b, battleshipGame);
+        thread2.start();
 
+        showForBots(playerA, playerB, battleshipGame);
 
-
-        //show(asd, a, b, battleshipGame);
+        //show(playerA, a, b, battleshipGame);
     }
 
-    private void show(String asd, Player a, Player b, BattleshipGame battleshipGame) throws java.io.IOException {
+    private void show(String playerName, BattleshipGame battleshipGame) throws java.io.IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
         Parent root = loader.load();
         GameController gameController = loader.getController();
-        gameController.init(battleshipGame, asd);
+        gameController.init(battleshipGame, playerName);
 
-        stage.setTitle("Hello World");
+        stage.setTitle(":D");
         stage.setOnCloseRequest(e->System.exit(0));
 
-        stage.setScene(new Scene(root, 800, 400));
+        stage.setScene(new Scene(root, 1000, 500));
         stage.show();
+    }
+
+    private void showForBots(String playerAName, String playerBName, BattleshipGame battleshipGame) throws java.io.IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("botsGameView.fxml"));
+        Parent root = loader.load();
+        BotsBattleController gameController = loader.getController();
+        gameController.init(battleshipGame, playerAName, playerBName);
+
+        stage.setTitle(":D");
+        stage.setOnCloseRequest(e -> System.exit(0));
+
+        stage.setScene(new Scene(root, 1000, 500));
+        stage.show();
+
     }
 
 

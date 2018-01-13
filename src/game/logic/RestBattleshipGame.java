@@ -5,16 +5,14 @@ import game.observer.BoardObserver;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class RestBattleshipGame implements BattleshipGame {
 
     private Map<String, PlayerBoard> playersMap = new HashMap<>();
     private String activePlayer;
     private Map<String, BoardObserver> observers = new HashMap<>();
+    private GameState gameState = GameState.RUNNING;
 
     public RestBattleshipGame(Player first, Player second, int size){
         playersMap.put(first.getName(),new PlayerBoard(first.getShips(), size));
@@ -24,7 +22,7 @@ public class RestBattleshipGame implements BattleshipGame {
 
 
     @Override
-    public MoveResult makeMove(String playerName, Coordinates coordinates) {
+    public synchronized MoveResult makeMove(String playerName, Coordinates coordinates) {
         PlayerBoard playerBoard = getEnemyBoard(playerName);
         MovePossible movePossible = isMovePossible(playerName, coordinates,playerBoard);
         if(!movePossible.isPossibleMove()){
@@ -34,10 +32,19 @@ public class RestBattleshipGame implements BattleshipGame {
         BoardMoveResult moveResult = playerBoard.hit(coordinates);
         updateAllObservers();
         if (moveResult.isHit() || moveResult.isSunk()) { //TODO moze ewentualnie rozdzielic
+            boolean winningMove = checkIfGameEnded();
+            if (winningMove) {
+                gameState = GameState.END;
+                return MoveResult.winningMove(getGameStatusFor(activePlayer));
+            }
             return MoveResult.hitMove(getGameStatusFor(activePlayer));
         }
         changeActivePlayer();
         return MoveResult.missMove(getGameStatusFor(playerName));
+    }
+
+    private boolean checkIfGameEnded() {
+        return playersMap.values().stream().mapToInt(board -> board.hasShipsLeft() ? 0 : 1).sum() != 0;
     }
 
     private PlayerBoard getEnemyBoard(String playerName) {
@@ -48,6 +55,9 @@ public class RestBattleshipGame implements BattleshipGame {
     }
 
     private MovePossible isMovePossible(String playerName, Coordinates coordinates, PlayerBoard playerBoard){
+        if (gameState == GameState.END) {
+            return new MovePossible(false, MoveResult.wrongMove(getGameStatusFor(playerName), ActionResult.GAME_ENDED));
+        }
         if(notPlayerInGame(playerName)){
             return new MovePossible(false,MoveResult.noPlayerInGame(getGameStatusFor(playerName)));
         }
@@ -92,6 +102,14 @@ public class RestBattleshipGame implements BattleshipGame {
     @Override
     public void addBoardObserver(String name,BoardObserver observer) {
         observers.put(name,observer);
+    }
+
+    @Override
+    public Optional<String> getWinner() {
+        if (gameState == GameState.RUNNING) {
+            return Optional.empty();
+        }
+        return Optional.of(activePlayer);
     }
 
     private void updateAllObservers(){

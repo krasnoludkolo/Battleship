@@ -35,4 +35,8 @@ public class MoveResult {
         return new MoveResult(gameStatus,actionResult,false);
     }
 
+    public static MoveResult winningMove(GameStatus gameStatus) {
+        return new MoveResult(gameStatus, ActionResult.WINNING_MOVE, false);
+    }
+
 }
