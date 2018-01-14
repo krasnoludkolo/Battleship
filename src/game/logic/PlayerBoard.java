@@ -38,7 +38,7 @@ class PlayerBoard {
 
     private Optional<Ship> getShipAt(Coordinates coordinates) {
         for (Ship ship : ships) {
-            if (ship.isPossibleToHit(coordinates)) {
+            if (ship.hasElementAt(coordinates)) {
                 return Optional.of(ship);
             }
         }
@@ -98,7 +98,7 @@ class PlayerBoard {
 
     boolean isPlaceAlreadyToHit(Coordinates coordinates) {
         Optional<Ship> shipAt = getShipAt(coordinates);
-        return shipAt.map(ship -> !ship.isPossibleToHit(coordinates)).orElse(false);
+        return shipAt.map(ship -> ship.isHitAt(coordinates)).orElse(false);
     }
 
     public boolean hasShipsLeft() {

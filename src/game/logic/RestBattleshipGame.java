@@ -35,9 +35,12 @@ public class RestBattleshipGame implements BattleshipGame {
             boolean winningMove = checkIfGameEnded();
             if (winningMove) {
                 gameState = GameState.END;
-                return MoveResult.winningMove(getGameStatusFor(activePlayer));
+                return MoveResult.winningMove(getGameStatusFor(playerName));
             }
-            return MoveResult.hitMove(getGameStatusFor(activePlayer));
+            if (moveResult.isSunk()) {
+                return MoveResult.sunkMove(getGameStatusFor(playerName));
+            }
+            return MoveResult.hitMove(getGameStatusFor(playerName));
         }
         changeActivePlayer();
         return MoveResult.missMove(getGameStatusFor(playerName));

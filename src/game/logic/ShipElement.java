@@ -16,4 +16,8 @@ class ShipElement {
     void hit(){
         hit=true;
     }
+
+    boolean isNotHit() {
+        return !hit;
+    }
 }

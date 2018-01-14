@@ -19,7 +19,7 @@ class Ship {
     }
 
     void hit(Coordinates c) {
-        if (isPossibleToHit(c)) {
+        if (hasElementAt(c)) {
             ShipElement element = getShipElementAt(c);
             element.hit();
             checkIfSunk();
@@ -27,20 +27,23 @@ class Ship {
     }
 
     boolean isHitAt(Coordinates c) {
-        if(isPossibleToHit(c)){
+        if (hasElementAt(c)) {
             ShipElement shipElementAt = getShipElementAt(c);
             return shipElementAt.isHit();
         }
         return false;
     }
 
-    boolean isPossibleToHit(Coordinates c) {
-        return elements
-                .stream()
-                .map(ShipElement::getCoordinates)
-                .collect(Collectors.toList())
-                .contains(c);
+    boolean hasElementAt(Coordinates c) {
+        for (ShipElement element : elements) {
+            if (element.getCoordinates().equals(c)) {
+                return true;
+            }
+        }
+        return false;
     }
+
+
 
     private void checkIfSunk() {
         int hitElements = elements.stream().mapToInt(e -> e.isHit() ? 1 : 0).sum();

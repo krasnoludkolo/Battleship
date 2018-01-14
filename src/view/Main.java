@@ -1,5 +1,6 @@
 package view;
 
+import ai.Bot;
 import ai.RandomBot;
 import game.BattleshipGame;
 import game.Coordinates;
@@ -29,13 +30,16 @@ public class Main extends Application {
         BattleshipGame battleshipGame = new RestBattleshipGame(a,b, size);
 
         Thread thread = new Thread(new RandomBot(battleshipGame, playerA));
-        Thread thread2 = new Thread(new RandomBot(battleshipGame, playerB));
+        Bot bot = new Bot(battleshipGame, playerB);
+        Thread thread2 = new Thread(bot);
         thread.start();
         thread2.start();
 
+        battleshipGame.addBoardObserver(playerB, bot);
+
         showForBots(playerA, playerB, battleshipGame);
 
-        //show(playerA, a, b, battleshipGame);
+//        show(playerA,battleshipGame);
     }
 
     private void show(String playerName, BattleshipGame battleshipGame) throws java.io.IOException {
@@ -79,6 +83,14 @@ public class Main extends Application {
             List<Coordinates> ship = new ArrayList<>();
             for (int j = 0; j < i; j++) {
                 Coordinates c = new Coordinates(i,j);
+                ship.add(c);
+            }
+            list.add(ship);
+        }
+        for (int i = 2; i < 8; i += 2) {
+            List<Coordinates> ship = new ArrayList<>();
+            for (int j = 5; j < i + 4; j++) {
+                Coordinates c = new Coordinates(i, j);
                 ship.add(c);
             }
             list.add(ship);

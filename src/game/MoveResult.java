@@ -28,7 +28,7 @@ public class MoveResult {
     }
 
     public static MoveResult missMove(GameStatus gameStatus){
-        return new MoveResult(gameStatus,ActionResult.OK,true);
+        return new MoveResult(gameStatus, ActionResult.MISS, true);
     }
 
     public static MoveResult wrongMove(GameStatus gameStatus, ActionResult actionResult){
@@ -37,6 +37,10 @@ public class MoveResult {
 
     public static MoveResult winningMove(GameStatus gameStatus) {
         return new MoveResult(gameStatus, ActionResult.WINNING_MOVE, false);
+    }
+
+    public static MoveResult sunkMove(GameStatus gameStatus) {
+        return new MoveResult(gameStatus, ActionResult.SUNK, false);
     }
 
 }

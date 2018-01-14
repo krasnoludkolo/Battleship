@@ -3,12 +3,17 @@ package ai;
 import game.*;
 import game.observer.BoardObserver;
 
+import java.util.Random;
+
 abstract class AbstractBot implements Runnable, BoardObserver {
+
 
     private BattleshipGame battleshipGame;
     private String name;
     private long sleepTime;
-    GameStatus lastGameStatus;
+    protected GameStatus lastGameStatus;
+    protected MoveResult lastMoveResult;
+    protected Random random = new Random();
 
     AbstractBot(BattleshipGame battleshipGame, String name, long sleepTime) {
         this.battleshipGame = battleshipGame;
@@ -24,7 +29,7 @@ abstract class AbstractBot implements Runnable, BoardObserver {
         do {
             Coordinates coordinates = nextMoveCoordinates();
             move = battleshipGame.makeMove(name, coordinates);
-
+            lastMoveResult = move;
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
@@ -36,6 +41,24 @@ abstract class AbstractBot implements Runnable, BoardObserver {
     }
 
     protected abstract Coordinates nextMoveCoordinates();
+
+    protected Coordinates getRandomCoordinates() {
+        int x;
+        int y;
+        GameStatus gameStatusFor = lastGameStatus;
+        do {
+            int maxX = gameStatusFor.getEnemyBoardCells().length;
+            int maxY = gameStatusFor.getEnemyBoardCells()[0].length;
+            x = random.nextInt(maxX);
+            y = random.nextInt(maxY);
+        } while (isNotEmpty(x, y, gameStatusFor));
+        return new Coordinates(x, y);
+    }
+
+    protected boolean isNotEmpty(int x, int y, GameStatus gameStatusFor) {
+        Cell cell = gameStatusFor.getEnemyBoardCells()[x][y];
+        return cell != Cell.EMPTY;
+    }
 
 
     @Override
