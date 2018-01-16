@@ -32,18 +32,22 @@ public class RestBattleshipGame implements BattleshipGame {
         BoardMoveResult moveResult = playerBoard.hit(coordinates);
         updateAllObservers();
         if (moveResult.isHit() || moveResult.isSunk()) { //TODO moze ewentualnie rozdzielic
-            boolean winningMove = checkIfGameEnded();
-            if (winningMove) {
-                gameState = GameState.END;
-                return MoveResult.winningMove(getGameStatusFor(playerName));
-            }
-            if (moveResult.isSunk()) {
-                return MoveResult.sunkMove(getGameStatusFor(playerName));
-            }
-            return MoveResult.hitMove(getGameStatusFor(playerName));
+            return getMoveResultWhenHit(playerName, moveResult);
         }
         changeActivePlayer();
         return MoveResult.missMove(getGameStatusFor(playerName));
+    }
+
+    private MoveResult getMoveResultWhenHit(String playerName, BoardMoveResult moveResult) {
+        boolean winningMove = checkIfGameEnded();
+        if (winningMove) {
+            gameState = GameState.END;
+            return MoveResult.winningMove(getGameStatusFor(playerName));
+        }
+        if (moveResult.isSunk()) {
+            return MoveResult.sunkMove(getGameStatusFor(playerName));
+        }
+        return MoveResult.hitMove(getGameStatusFor(playerName));
     }
 
     private boolean checkIfGameEnded() {
