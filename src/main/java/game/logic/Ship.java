@@ -3,18 +3,17 @@ package game.logic;
 import game.Cell;
 import game.Coordinates;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 class Ship {
 
-    private final List<ShipElement> elements = new ArrayList<>();
+    private final List<ShipElement> elements;
     private boolean isSunk;
 
     Ship(List<Coordinates> coordinates) {
-        coordinates.stream().map(ShipElement::new).forEach(elements::add);
+        elements = coordinates.stream().map(ShipElement::new).collect(Collectors.toList());
         isSunk = false;
     }
 
