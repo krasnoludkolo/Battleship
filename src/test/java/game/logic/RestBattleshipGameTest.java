@@ -1,9 +1,9 @@
 package game.logic;
 
-import game.ActionResult;
-import game.Coordinates;
-import game.MoveResult;
-import game.NewPlayer;
+import game.api.ActionResult;
+import game.api.Coordinates;
+import game.api.MoveResult;
+import game.api.NewPlayer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

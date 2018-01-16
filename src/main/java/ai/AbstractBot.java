@@ -1,6 +1,6 @@
 package ai;
 
-import game.*;
+import game.api.*;
 import game.observer.BoardObserver;
 
 import java.util.Random;

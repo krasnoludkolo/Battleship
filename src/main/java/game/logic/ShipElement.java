@@ -1,6 +1,6 @@
 package game.logic;
 
-import game.Coordinates;
+import game.api.Coordinates;
 import lombok.Getter;
 
 @Getter

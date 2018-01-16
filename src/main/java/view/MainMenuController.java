@@ -2,9 +2,9 @@ package view;
 
 import ai.RandomBoardGenerator;
 import ai.RandomBot;
-import game.BattleshipGame;
-import game.Coordinates;
-import game.NewPlayer;
+import game.api.BattleshipGame;
+import game.api.Coordinates;
+import game.api.NewPlayer;
 import game.logic.RestBattleshipGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

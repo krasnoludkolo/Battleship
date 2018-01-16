@@ -1,6 +1,6 @@
 package ai;
 
-import game.Coordinates;
+import game.api.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Collections;

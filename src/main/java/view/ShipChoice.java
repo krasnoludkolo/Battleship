@@ -1,6 +1,6 @@
 package view;
 
-import game.Coordinates;
+import game.api.Coordinates;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

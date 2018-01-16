@@ -1,7 +1,7 @@
 package view;
 
-import game.BattleshipGame;
-import game.Cell;
+import game.api.BattleshipGame;
+import game.api.Cell;
 import javafx.scene.image.Image;
 
 abstract class Controller {

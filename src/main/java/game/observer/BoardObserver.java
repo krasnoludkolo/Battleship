@@ -1,6 +1,6 @@
 package game.observer;
 
-import game.GameStatus;
+import game.api.GameStatus;
 
 public interface BoardObserver {
 

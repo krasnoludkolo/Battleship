@@ -1,6 +1,6 @@
 package game.logic;
 
-import game.*;
+import game.api.*;
 import game.observer.BoardObserver;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

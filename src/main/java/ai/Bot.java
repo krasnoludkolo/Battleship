@@ -1,9 +1,9 @@
 package ai;
 
-import game.ActionResult;
-import game.BattleshipGame;
-import game.Cell;
-import game.Coordinates;
+import game.api.ActionResult;
+import game.api.BattleshipGame;
+import game.api.Cell;
+import game.api.Coordinates;
 
 public class Bot extends AbstractBot {
 

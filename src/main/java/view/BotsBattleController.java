@@ -1,8 +1,8 @@
 package view;
 
-import game.BattleshipGame;
-import game.Cell;
-import game.GameStatus;
+import game.api.BattleshipGame;
+import game.api.Cell;
+import game.api.GameStatus;
 import game.observer.BoardObserver;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

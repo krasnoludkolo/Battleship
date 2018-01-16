@@ -1,7 +1,7 @@
 package game.logic;
 
-import game.Cell;
-import game.Coordinates;
+import game.api.Cell;
+import game.api.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Arrays;

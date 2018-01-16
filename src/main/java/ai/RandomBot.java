@@ -1,7 +1,7 @@
 package ai;
 
-import game.BattleshipGame;
-import game.Coordinates;
+import game.api.BattleshipGame;
+import game.api.Coordinates;
 
 public class RandomBot extends AbstractBot {
 
