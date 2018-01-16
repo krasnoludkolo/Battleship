@@ -4,7 +4,7 @@ import ai.Bot;
 import ai.RandomBoardGenerator;
 import ai.RandomBot;
 import game.BattleshipGame;
-import game.Player;
+import game.NewPlayer;
 import game.logic.RestBattleshipGame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +22,8 @@ public class Main extends Application {
 
         String playerA = "jeden";
         String playerB = "bot";
-        Player a = new Player(playerA, RandomBoardGenerator.getTestBoard());
-        Player b = new Player(playerB, RandomBoardGenerator.getTestBoard());
+        NewPlayer a = new NewPlayer(playerA, RandomBoardGenerator.getTestBoard());
+        NewPlayer b = new NewPlayer(playerB, RandomBoardGenerator.getTestBoard());
         BattleshipGame battleshipGame = new RestBattleshipGame(a, b, size);
 
         Thread thread = new Thread(new RandomBot(battleshipGame, playerA));

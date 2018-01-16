@@ -14,7 +14,7 @@ public class RestBattleshipGame implements BattleshipGame {
     private Map<String, BoardObserver> observers = new HashMap<>();
     private GameState gameState = GameState.RUNNING;
 
-    public RestBattleshipGame(Player first, Player second, int size) {
+    public RestBattleshipGame(NewPlayer first, NewPlayer second, int size) {
         playersMap.put(first.getName(), new PlayerBoard(first.getShips(), size));
         playersMap.put(second.getName(), new PlayerBoard(second.getShips(), size));
         activePlayer = first.getName();

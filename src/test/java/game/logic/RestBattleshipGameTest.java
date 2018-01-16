@@ -3,7 +3,7 @@ package game.logic;
 import game.ActionResult;
 import game.Coordinates;
 import game.MoveResult;
-import game.Player;
+import game.NewPlayer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RestBattleshipGameTest {
 
-    private Player playerA = new Player("test1", testList());
-    private Player playerB = new Player("test2", testList());
+    private NewPlayer newPlayerA = new NewPlayer("test1", testList());
+    private NewPlayer newPlayerB = new NewPlayer("test2", testList());
 
     @Test
     void shouldBeMiss() {
-        RestBattleshipGame game = new RestBattleshipGame(playerA, playerB, 10);
+        RestBattleshipGame game = new RestBattleshipGame(newPlayerA, newPlayerB, 10);
         Coordinates coordinates = new Coordinates(2, 2);
         MoveResult moveResult = game.makeMove("test1", coordinates);
         ActionResult shouldBeMiss = moveResult.getActionResult();
@@ -28,7 +28,7 @@ class RestBattleshipGameTest {
 
     @Test
     void shouldBeSunk() {
-        RestBattleshipGame game = new RestBattleshipGame(playerA, playerB, 10);
+        RestBattleshipGame game = new RestBattleshipGame(newPlayerA, newPlayerB, 10);
         Coordinates coordinates = new Coordinates(1, 0);
         MoveResult moveResult = game.makeMove("test1", coordinates);
         ActionResult shouldBeSunk = moveResult.getActionResult();
@@ -37,7 +37,7 @@ class RestBattleshipGameTest {
 
     @Test
     void shouldBeHitMiss() {
-        RestBattleshipGame game = new RestBattleshipGame(playerA, playerB, 10);
+        RestBattleshipGame game = new RestBattleshipGame(newPlayerA, newPlayerB, 10);
         Coordinates coordinates = new Coordinates(2, 2);
         game.makeMove("test1", coordinates);
         game.makeMove("test2", coordinates);

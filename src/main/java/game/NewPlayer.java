@@ -7,7 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class Player {
+public class NewPlayer {
 
     private final String name;
     private final List<List<Coordinates>> ships;

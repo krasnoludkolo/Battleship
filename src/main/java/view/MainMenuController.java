@@ -4,7 +4,7 @@ import ai.RandomBoardGenerator;
 import ai.RandomBot;
 import game.BattleshipGame;
 import game.Coordinates;
-import game.Player;
+import game.NewPlayer;
 import game.logic.RestBattleshipGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,11 +111,11 @@ public class MainMenuController implements Initializable {
     }
 
     void playerReady(String name, List<List<Coordinates>> setShips) {
-        Player player = new Player(name, setShips);
+        NewPlayer newPlayer = new NewPlayer(name, setShips);
         if (gameType == GameType.SINGLE) {
             String botName = "bot";
-            Player bot = new Player(botName, RandomBoardGenerator.getTestBoard());
-            BattleshipGame game = new RestBattleshipGame(player, bot, Integer.parseInt(size.getText()));
+            NewPlayer bot = new NewPlayer(botName, RandomBoardGenerator.getTestBoard());
+            BattleshipGame game = new RestBattleshipGame(newPlayer, bot, Integer.parseInt(size.getText()));
             Thread thread = new Thread(new RandomBot(game, botName));
             thread.start();
             try {
