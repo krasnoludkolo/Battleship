@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane alignment="CENTER" hgap="1.0" prefHeight="400.0" prefWidth="600.0" vgap="10.0"
+          xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="view.MainMenuController">
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+    <VBox prefHeight="95.0" prefWidth="150.0" GridPane.columnIndex="1">
+        <children>
+            <HBox prefHeight="100.0" prefWidth="140.0">
+                <children>
+                    <Label alignment="CENTER" prefHeight="26.0" prefWidth="76.0" text="Board size"
+                           textAlignment="CENTER" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="size" alignment="CENTER" prefHeight="26.0" prefWidth="76.0" text="10"/>
+                </children>
+            </HBox>
+            <Label fx:id="error" prefHeight="16.0" prefWidth="153.0" text="Label"/>
+        </children>
+    </VBox>
+    <ComboBox fx:id="graphicChoice" prefWidth="150.0" promptText="Ships" GridPane.columnIndex="1"
+              GridPane.rowIndex="1"/>
+    <Button fx:id="single" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="vs Bot"
+            GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Button fx:id="multi" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="vs"
+            GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+</GridPane>
