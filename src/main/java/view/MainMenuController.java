@@ -128,7 +128,7 @@ public class MainMenuController implements Initializable {
 
     private void show(String playerName, BattleshipGame battleshipGame) throws java.io.IOException {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gameView.fxml"));
         Parent root = loader.load();
         GameController gameController = loader.getController();
         gameController.init(battleshipGame, playerName);

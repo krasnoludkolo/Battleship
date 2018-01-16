@@ -41,7 +41,7 @@ public class Main extends Application {
 
     private void show(String playerName, BattleshipGame battleshipGame) throws java.io.IOException {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gameView.fxml"));
         Parent root = loader.load();
         GameController gameController = loader.getController();
         gameController.init(battleshipGame, playerName);
@@ -55,7 +55,7 @@ public class Main extends Application {
 
     private void showForBots(String playerAName, String playerBName, BattleshipGame battleshipGame) throws java.io.IOException {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("botsGameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/botsGameView.fxml"));
         Parent root = loader.load();
         BotsBattleController gameController = loader.getController();
         gameController.init(battleshipGame, playerAName, playerBName);

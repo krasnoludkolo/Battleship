@@ -10,7 +10,7 @@ public class Main2 extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu.fxml"));
         Parent root = loader.load();
 
         stage.setTitle(":D");

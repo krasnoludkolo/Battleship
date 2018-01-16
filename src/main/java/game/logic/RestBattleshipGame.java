@@ -73,7 +73,7 @@ public class RestBattleshipGame implements BattleshipGame {
         if (playerBoard.isPlaceAlreadyToHit(coordinates)) {
             return new MovePossible(false, MoveResult.wrongMove(getGameStatusFor(playerName), ActionResult.HIT_HIT));
         }
-        PlayerBoard board = playersMap.get(playerName);
+        PlayerBoard board = getEnemyBoard(playerName);
         if (board.isPlaceAlreadyMiss(coordinates)) {
             return new MovePossible(false, MoveResult.wrongMove(getGameStatusFor(playerName), ActionResult.HIT_MISS));
         }

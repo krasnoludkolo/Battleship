@@ -14,7 +14,7 @@ abstract class Controller {
     protected Image ship;
     protected Image sunk;
 
-    private String path = "resources/";
+    private String path = "/images/";
 
     public void init(String graphicName) {
         setGraphicSet(graphicName);
